@@ -25,7 +25,7 @@ const MainPage = () => {
         <a href="#" className="text-sm text-violet-600 hover:underline">View All</a>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {products.map((product) => (
           <Card
             key={product.id}
