@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import productData from '../data/products.json';
 import defaultImage from '../assets/defaultImage.png';
 import likeIcon from '../assets/LikeButton.svg';
+import exitIcon from '../assets/exit.svg';
+import cartIcon from '../assets/purpleCart.svg';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -83,26 +85,44 @@ export default function ProductDetail() {
 
       {/* 모달 */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-md text-center space-y-4">
-            <p className="text-lg font-semibold">🛒 장바구니에 추가되었습니다!</p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 border rounded"
-              >
-                계속 쇼핑하기
-              </button>
-              <button
-                onClick={() => navigate('/cart')}
-                className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
-              >
-                장바구니로 이동
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+    <div className="relative bg-white w-full max-w-xs md:max-w-sm p-6 rounded-md shadow-md text-center">
+      
+      {/* 닫기 버튼 */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-3 right-3 text-gray-500 hover:opacity-70"
+      >
+        <img src={exitIcon} alt="닫기" className="w-4 h-4" />
+      </button>
+
+      {/* 카트 아이콘 */}
+      <div className="flex justify-center mb-3">
+        <img src={cartIcon} alt="장바구니" className="w-6 h-6" />
+      </div>
+
+      {/* 텍스트 */}
+      <p className="text-sm text-gray-700 font-medium mb-6">장바구니에 추가되었습니다.</p>
+
+      {/* 버튼들 */}
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={() => setShowModal(false)}
+          className="text-sm text-violet-600 hover:underline"
+        >
+          쇼핑 계속하기
+        </button>
+        <button
+          onClick={() => navigate('/cart')}
+          className="bg-[#6B21A8] hover:bg-[#5A189A] text-white text-sm px-4 py-2 rounded"
+        >
+          장바구니 보기
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </main>
   );
 }
