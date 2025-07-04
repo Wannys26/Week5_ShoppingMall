@@ -2,57 +2,49 @@
   {
     "id": 1,
     "category": "Clothing",
-    "title": "Casual T-Shirt",
-    "price": 24.99,
-    "image": "/images/tshirt.png"
+    "name": "Casual T-Shirt",
+    "price": 24.99
   },
   {
     "id": 2,
     "category": "Footwear",
-    "title": "Running Shoes",
-    "price": 89.99,
-    "image": "/images/shoes.png"
+    "name": "Running Shoes",
+    "price": 89.99
   },
   {
     "id": 3,
     "category": "Electronics",
-    "title": "Wireless Headphones",
-    "price": 129.99,
-    "image": "/images/headphones.png"
+    "name": "Wireless Headphones",
+    "price": 129.99
   },
   {
     "id": 4,
     "category": "Electronics",
-    "title": "Smart Watch",
-    "price": 199.99,
-    "image": "/images/watch.png"
+    "name": "Smart Watch",
+    "price": 199.99
   },
   {
     "id": 5,
     "category": "Accessories",
-    "title": "Leather Backpack",
-    "price": 79.99,
-    "image": "/images/backpack.png"
+    "name": "Leather Backpack",
+    "price": 79.99
   },
   {
     "id": 6,
     "category": "Accessories",
-    "title": "Sunglasses",
-    "price": 34.99,
-    "image": "/images/sunglasses.png"
+    "name": "Sunglasses",
+    "price": 34.99
   },
   {
     "id": 7,
     "category": "Clothing",
-    "title": "Denim Jacket",
-    "price": 69.99,
-    "image": "/images/jacket.png"
+    "name": "Denim Jacket",
+    "price": 69.99
   },
   {
     "id": 8,
     "category": "Living",
-    "title": "Tent",
-    "price": 19.99,
-    "image": "/images/tent.png"
+    "name": "Tent",
+    "price": 19.99
   }
 ]
