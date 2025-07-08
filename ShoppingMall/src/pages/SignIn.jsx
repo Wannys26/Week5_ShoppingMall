@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import kakaoimg from '../assets/Vector.svg'
 
 export default function SignIn() {
-
-
   return (
     <div className="signin-container">
       <div className="signin-card">
@@ -19,7 +17,7 @@ export default function SignIn() {
           <img src={kakaoimg} alt="kakao" />
         </button>
       </div>
+     </div>
     </div>
-  </div>
   );
 }
