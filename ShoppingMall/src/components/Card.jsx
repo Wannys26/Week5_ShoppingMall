@@ -1,8 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import defaultImage from '../assets/defaultImage.png';
 
-export default function Card({ category, name, price, onAddToCart }) {
+export default function Card({ id, category, name, price, onAddToCart }) {
+  
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/product/${id}`);
+  }
+  
+  
   return (
-    <div className="
+    <div
+    onClick={handleCardClick} 
+    className="
       bg-white rounded-xl overflow-hidden shadow hover:shadow-md transition duration-300
       ph:max-w-[90vw] dt:max-w-sm"> {/*박스 너비-데스크탑일때 max로 보이도록 코드 추가했습니다.*/}
       <div className="
@@ -26,7 +37,10 @@ export default function Card({ category, name, price, onAddToCart }) {
           ph:text-base dt:text-lg"> {/* 가격 부분 크기 조정을 위해 코드 수정했습니다.*/}
           ${price}</span>
           <button
-            onClick={onAddToCart}
+            onClick={(e) => { 
+              e.stopPropagation();
+              onAddToCart();
+            }}
             className=" 
             bg-violet-600 text-white rounded hover:bg-violet-700
             ph:px-2 dt:px-3 
