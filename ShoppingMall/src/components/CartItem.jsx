@@ -1,6 +1,6 @@
 import XFrame from '../assets/XFrame.svg';
 
-export default function CartItem({ item, checked, onCheck }) {
+export default function CartItem({ item, checked, onCheck, XFrame }) {
   return (
     <div className="cart-item">
       <input type="checkbox" checked={checked} onChange={onCheck} />
