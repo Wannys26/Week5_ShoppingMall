@@ -1,4 +1,6 @@
-export default function Card({ category, title, price, image, onAddToCart }) {
+import defaultImage from '../assets/defaultImage.png';
+
+export default function Card({ category, name, price, onAddToCart }) {
   return (
     <div className="
       bg-white rounded-xl overflow-hidden shadow hover:shadow-md transition duration-300
@@ -6,7 +8,7 @@ export default function Card({ category, title, price, image, onAddToCart }) {
       <div className="
       w-full overflow-hidden
       ph:aspect-square dt:aspect-[3/2]"> {/*이미지 비율을 모바일에서는 정사각형, 데스크탑에서 3:2로 보이게 기존 코드수정했습니다. */}
-        <img src={image} alt={title} className="w-full h-full object-cover" />
+        <img src={defaultImage} alt={name} className="w-full h-full object-cover" />
       </div>
       <div className="p-4">
         <p className="
@@ -16,7 +18,7 @@ export default function Card({ category, title, price, image, onAddToCart }) {
         <h3 className="
         font-semibold text-gray-800 mb-2 truncate
         ph:text-sm dt:text-base">{/*제목 부분 크기 조정을 위해 코드 수정했습니다.*/}
-        {title}
+        {name}
         </h3>
         <div className="flex justify-between items-center">
           <span className="
