@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useCart } from '../contexts/CartContext'; //추가했습니다
 import productData from '../data/products.json';
 import defaultImage from '../assets/defaultImage.png';
 import likeIcon from '../assets/LikeButton.svg';
@@ -13,6 +14,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [liked, setLiked] = useState(false);
+  const { addToCart } = useCart(); //장바구니 추가 기능 구현
 
   useEffect(() => {
     const found = productData.find((p) => p.id === parseInt(id));
@@ -20,7 +22,10 @@ export default function ProductDetail() {
   }, [id]);
 
   const handleAddToCart = () => {
+     if (product) {
+      addToCart(product, quantity); //장바구니에 수량만큼 추가하는 기능 구현
     setShowModal(true);
+     }
   };
 
   const increase = () => setQuantity((prev) => prev + 1);
