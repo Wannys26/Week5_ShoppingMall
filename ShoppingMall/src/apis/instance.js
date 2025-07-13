@@ -1,6 +1,10 @@
-import instance from './instance';
+import axios from 'axios';
 
-export const fetchAllProducts = async () => {
-  const res = await instance.get('/products');
-  return res.data;
-};
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default instance;
