@@ -10,7 +10,13 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product, quantity) => {
+
+      if (!product || typeof product !== 'object' || !product.id) {
+    console.error('잘못된 product 데이터입니다:', product);
+    return;
+  }
     setCart(prevCart => {
+      const safeCart = Array.isArray(prevCart) ? prevCart : [];
       const existing = prevCart.find(item => item.id === product.id);
       if (existing) {
         return prevCart.map(item =>
@@ -23,22 +29,22 @@ export function CartProvider({ children }) {
     });
   };
 
-  {/*전체 선택 버튼 함수*/}
   const removeItems = (ids) => {
     setCart(prevCart => prevCart.filter(item => !ids.includes(item.id)));
   };
-  
-  {/*선택 삭제 버튼 함수*/}
-    const removeCheckedItems = (checkedIds) => {
+
+  const removeCheckedItems = (checkedIds) => {
     setCart(prevCart => prevCart.filter(item => !checkedIds.includes(item.id)));
   };
 
   return (
     <CartContext.Provider value={{ 
       cart, 
+      setCart,
       addToCart, 
       removeItems,
-      removeCheckedItems, }}>
+      removeCheckedItems
+    }}>
       {children}
     </CartContext.Provider>
   );
