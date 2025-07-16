@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { fetchProductById } from '../apis/products';
 import defaultImage from '../assets/defaultImage.png';
-import likeIcon from '../assets/LikeButton.svg';
 import exitIcon from '../assets/exit.svg';
 import cartIcon from '../assets/purpleCart.svg';
 
