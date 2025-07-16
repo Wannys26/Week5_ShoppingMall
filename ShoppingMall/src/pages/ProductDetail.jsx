@@ -20,6 +20,7 @@ export default function ProductDetail() {
     const loadProduct = async () => {
       try {
         const data = await fetchProductById(id);
+        console.log('상품 상세 조회 성공: ', data);
         setProduct(data);
       } catch (err) {
         console.error('상품 상세 조회 실패:', err);

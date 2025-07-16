@@ -17,7 +17,7 @@ const Navbar = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (search.trim()) {
-      navigate(`/?q=${encodeURIComponent(search.trim())}`);
+      navigate(`/?q=${encodeURIComponent(search)}`);
     }
   };
 

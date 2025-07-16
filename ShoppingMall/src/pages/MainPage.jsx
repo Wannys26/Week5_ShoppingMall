@@ -14,11 +14,14 @@ const MainPage = () => {
         const result = searchQuery
           ? await searchProducts(searchQuery)
           : await fetchAllProducts();
-        setProducts(result);
+        console.log('API 응답 데이터: ', result);
+        setProducts(Array.isArray(result) ? result : []);
       } catch (err) {
         console.error('상품 불러오기 실패:', err);
+        setProducts([]);
       }
     };
+
     loadProducts();
   }, [searchQuery]);
 
@@ -39,13 +42,16 @@ const MainPage = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {products.map((product) => (
+        {Array.isArray(products) && products.map((product) => { 
+          console.log('카드에 전달될 product:', product);
+          return (
           <Card
             key={product.id}
             {...product}
             onAddToCart={() => handleAddToCart(product)}
           />
-        ))}
+          );
+          })}
       </div>
     </div>
   );
