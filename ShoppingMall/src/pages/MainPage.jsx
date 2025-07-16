@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Card from '../components/Card';
-import productsData from '../data/products.json';
+import { fetchAllProducts, searchProducts } from '../apis/products';
 
 const MainPage = () => {
   const [products, setProducts] = useState([]);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get('q');
 
   useEffect(() => {
-    setProducts(productsData);
-  }, []);
+    const loadProducts = async () => {
+      try {
+        const result = searchQuery
+          ? await searchProducts(searchQuery)
+          : await fetchAllProducts();
+        setProducts(result);
+      } catch (err) {
+        console.error('상품 불러오기 실패:', err);
+      }
+    };
+    loadProducts();
+  }, [searchQuery]);
 
   const handleAddToCart = (product) => {
     console.log('Added to cart:', product);
