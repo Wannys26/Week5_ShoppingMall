@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import defaultImage from '../assets/defaultImage.png';
 
 export default function Card({ id, category, name, price, onAddToCart }) {
-  console.log('🟣 Card props:', { id, category, name, price });
+  console.log('Card props:', { id, category, name, price });
   
   const navigate = useNavigate();
 
