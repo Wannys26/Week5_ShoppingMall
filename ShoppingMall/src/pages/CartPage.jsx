@@ -1,11 +1,27 @@
 import { useCart } from '../contexts/CartContext';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import CartItem from '../components/CartItem';
-
+import { getCart, addToCart, deleteCartItem } from '../apis/cart';
 
 export default function CartPage() {
-  const { cart, removeCheckedItems } = useCart(); 
+  const { cart, removeCheckedItems, setCart, addToCart: addToCartContext, removeItems } = useCart();
   const [checkedItems, setCheckedItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const data = await getCart();
+        setCart(data.cartItems); 
+      } catch (err) {
+        console.error('장바구니 불러오기 실패:', err);
+      }
+    };
+    fetchCart();
+  }, []);
+
+   if (!cart) {
+    return <div>장바구니 데이터를 불러오는 중입니다...</div>;
+  }
 
   const handleCheckAll = (e) => {
     if (e.target.checked) {
@@ -24,20 +40,39 @@ export default function CartPage() {
   };
 
   const handleDeleteSelected = () => {
-  removeCheckedItems(checkedItems);  // context 내부에서 cart 업데이트
-  setCheckedItems([]);        // 체크 초기화는 그대로 유지
-};
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    removeCheckedItems(checkedItems); 
+    setCheckedItems([]);
+  };
 
- const checkedTotal = cart
-  .filter(item => checkedItems.includes(item.id))
-  .reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const handleAdd = async (item) => {
+    try {
+      await addToCart(item.id, 1);          
+      addToCartContext(item, 1);
+    } catch (err) {
+      console.error('수량 추가 실패:', err);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteCartItem(id);
+      removeItems([id]);
+    } catch (err) {
+      console.error('삭제 실패:', err);
+    }
+  };
+
+  const checkedTotal = Array.isArray(cart)
+    ? cart
+      .filter(item => checkedItems.includes(item.id))
+      .reduce((sum, item) => sum + item.price * item.quantity, 0)
+    : 0;
 
   return (
     <div className="cart-wrapper">
       <h2>장바구니</h2>
       <hr />
-      {cart.length === 0 ? (
+      {Array.isArray(cart) && cart.length === 0 ? (
         <div className="empty-cart">
           <p>장바구니가 비었습니다.</p>
           <button onClick={() => window.location.href = '/'} className="go-shopping">쇼핑하러 가기</button>
@@ -46,18 +81,20 @@ export default function CartPage() {
         <>
           <div className="cart-main">
             <div className="cart-items">
-              {cart.map(item => (
+              {Array.isArray(cart) && cart.map(item => (
                 <CartItem
                   key={item.id}
                   item={item}
                   checked={checkedItems.includes(item.id)}
                   onCheck={() => handleItemCheck(item.id)}
+                  onAdd={() => handleAdd(item)}
+                  onDelete={() => handleDelete(item.id)}
                 />
               ))}
             </div>
 
             <div className="cart-summary">
-              <p>총 주문 금액 <b>{checkedTotal.toLocaleString()} 원</b></p>
+              <p>총 주문 금액 <b>{checkedTotal.toLocaleString()} 원</b></p> 
               <p>할인 금액 0 원</p>
               <p>배송비 0 원</p>
               <p><b>총 결제 금액 {checkedTotal.toLocaleString()} 원</b></p>
@@ -70,6 +107,7 @@ export default function CartPage() {
               <input
                 type="checkbox"
                 onChange={handleCheckAll}
+                  
                 checked={checkedItems.length === cart.length}
               /> 전체 선택 |
             </label>
