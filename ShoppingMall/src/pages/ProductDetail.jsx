@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import productData from '../data/products.json';
 import defaultImage from '../assets/defaultImage.png';
-import likeIcon from '../assets/LikeButton.svg';
+import likeIcon from '../assets/likeButton.svg';
 import exitIcon from '../assets/exit.svg';
 import cartIcon from '../assets/purpleCart.svg';
 
