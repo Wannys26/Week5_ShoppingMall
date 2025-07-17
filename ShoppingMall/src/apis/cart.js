@@ -12,11 +12,13 @@ export const addToCart = async (productId, quantity) => {
     productId,
     quantity,
   });
+  console.log('장바구니 추가완료', res);
   return res.data;
 };
 
 // 장바구니 아이템 삭제
 export const deleteCartItem = async (id) => {
   const res = await instance.delete(`/cart/${id}`);
+  console.log('장바구니 추가완료', res);
   return res.data;
 };
