@@ -43,7 +43,6 @@ const MainPage = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {Array.isArray(products) && products.map((product) => { 
-          console.log('카드에 전달될 product:', product);
           return (
           <Card
             key={product.id}
