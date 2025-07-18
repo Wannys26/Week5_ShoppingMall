@@ -10,15 +10,13 @@ export default function CartItem({ item, checked, onCheck, onAdd, onDelete }) {
         alt={item.name}
         className="item-img"
       />
-      <span className="item-name">{item.name}</span>
+      <span className="item-name">{item.productName}</span>
       <span className="item-qty">{item.quantity}</span>
       <span className="item-price">
-        {(item.price * item.quantity).toLocaleString()} 원
+        {item.totalPrice.toLocaleString()} 원
       </span>
-      <button onClick={onAdd}>+1</button>
-      <button onClick={onDelete}>
-        <img src={XFrame} alt="삭제" />
-      </button>
+      <button onClick={onAdd}></button>
+      <button onClick={onDelete}></button>
     </div>
   );
 }

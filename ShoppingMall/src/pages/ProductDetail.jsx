@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { fetchProductById } from '../apis/products';
+import { addToCart as apiAddToCart } from '../apis/cart'; //추가했습니다
 import defaultImage from '../assets/defaultImage.png';
 import likeIcon from '../assets/likeButton.svg';
 import exitIcon from '../assets/exit.svg';
@@ -14,7 +15,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [liked, setLiked] = useState(false);
-  const { addToCart } = useCart();
+  const { addToCart:addToCartContext } = useCart();
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -29,12 +30,22 @@ export default function ProductDetail() {
     loadProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart(product, quantity);
-      setShowModal(true);
-    }
-  };
+  //디버깅 과정에서 에러 메시지 찍어보느라 내용 조금 수정했습니다!
+  const handleAddToCart = async () => {
+  console.log('handleAddToCart 시작, apiAddToCart=', apiAddToCart);
+  if (!product) return;
+  console.log('product.id=', product.id, 'quantity=', quantity);
+  try {
+    const updated = await apiAddToCart(product.id, quantity);
+    console.log('🛒 API 응답:', updated);
+    addToCartContext(product, quantity);
+    setShowModal(true);
+  } catch (err) {
+    console.error('addToCart 에러 전체:', err);
+    console.error('err.response:', err.response);
+    alert(`장바구니 담기에 실패했습니다.\nHTTP ${err.response?.status}\n${JSON.stringify(err.response?.data)}`);
+  }
+};
 
   const totalPrice = product ? (product.price * quantity).toLocaleString() : 0;
 
