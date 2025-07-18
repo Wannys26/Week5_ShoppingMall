@@ -3,6 +3,7 @@ import instance from './instance';
 // 장바구니 조회
 export const getCart = async () => {
   const res = await instance.get('/cart');
+  console.log('장바구니 조회 응답:', res.data);
   return res.data;
 };
 
@@ -12,6 +13,7 @@ export const addToCart = async (productId, quantity) => {
     productId,
     quantity,
   });
+  console.log('장바구니 추가 완료');
   return res.data;
 };
 
